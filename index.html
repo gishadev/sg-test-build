@@ -54,6 +54,40 @@
         }
         updateBannerVisibility();
       }
+	  
+	  	  function startAppleAuthJS(clientID, redirectURI)
+{
+    // Apple's OAuth 2.0 endpoint for requesting an access token
+    var oauth2Endpoint = 'https://appleid.apple.com/auth/authorize';
+
+    // Create element to open OAuth 2.0 endpoint in a new window.
+    var form = document.createElement('form');
+    form.setAttribute('method', 'POST'); // Send as a GET request.
+    form.setAttribute('action', oauth2Endpoint);
+
+    // Parameters to pass to OAuth 2.0 endpoint.
+    var params = {
+        'client_id': "udtech.co.drillsstage",
+        'redirect_uri': "https://gishadev.github.io/sg-test-build/,
+        'response_type': 'code',
+        'scope': 'name email', // Add the scopes you need
+        'state': 'state',
+		'response_mode': 'form_post',
+    };
+
+    // Add form parameters as hidden input values.
+    for (var p in params) {
+        var input = document.createElement('input');
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', p);
+        input.setAttribute('value', params[p]);
+        form.appendChild(input);
+    }
+
+    // Add form to the page and submit it to open the OAuth 2.0 endpoint.
+    document.body.appendChild(form);
+    form.submit();
+}
 
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/shooter-webgl.loader.js";
