@@ -67,11 +67,11 @@ function startAppleAuthJS(clientID, redirectURI)
 
     // Parameters to pass to OAuth 2.0 endpoint.
     var params = {
+	'response_type': 'code id_token',
         'client_id': 'udtech.co.drillsstage',
         'redirect_uri': 'https://gishadev.github.io/sg-test-build/',
-        'response_type': 'code id_token',
-        'scope': 'email name', // Add the scopes you need
-        'state': 'state',
+	'state': 'state',
+        'scope': 'email name',
 	'response_mode': 'form_post',
     };
 
