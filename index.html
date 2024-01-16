@@ -55,39 +55,17 @@
         updateBannerVisibility();
       }
 	  
-function startAppleAuthJS(clientID, redirectURI)
-{
-    // Apple's OAuth 2.0 endpoint for requesting an access token
-    var oauth2Endpoint = 'https://appleid.apple.com/auth/authorize';
-
-    // Create element to open OAuth 2.0 endpoint in a new window.
-    var form = document.createElement('form');
-    form.setAttribute('method', 'GET'); // Send as a GET request.
-    form.setAttribute('action', oauth2Endpoint);
-
-    // Parameters to pass to OAuth 2.0 endpoint.
-    var params = {
-	'response_type': 'code',
-        'client_id': 'global.shooters.stage.client',
-        'redirect_uri': 'https://gishadev.github.io/sg-test-build/',
-	'state': 'state',
-        'scope': 'email name',
-	'response_mode': 'form_post',
-    };
-
-    // Add form parameters as hidden input values.
-    for (var p in params) {
-        var input = document.createElement('input');
-        input.setAttribute('type', 'hidden');
-        input.setAttribute('name', p);
-        input.setAttribute('value', params[p]);
-        form.appendChild(input);
-    }
-
-    // Add form to the page and submit it to open the OAuth 2.0 endpoint.
-    document.body.appendChild(form);
-    form.submit();
-}
+	function startAppleAuthJS(clientID, redirectURI)
+	{
+		AppleID.auth.init({
+		clientId : 'global.shooters.stage.client',
+		scope : 'email name',
+		redirectURI : 'https://gishadev.github.io/sg-test-build/',
+		state : 'STATE',
+		usePopup : false
+		});
+		AppleID.auth.signIn();
+	}
 
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/shooter-webgl.loader.js";
@@ -149,5 +127,6 @@ function startAppleAuthJS(clientID, redirectURI)
       };
       document.body.appendChild(script);
     </script>
+    <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
   </body>
 </html>
