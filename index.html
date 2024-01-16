@@ -55,18 +55,16 @@
         updateBannerVisibility();
       }
 	  
-	  function startAppleAuthJS()
-		{
-			AppleID.auth.init({
-				clientId : 'global.shooters.stage.client',
-				scope : 'name email',
-				redirectURI : 'https://gishadev.github.io/sg-test-build/',
-				state : 'STATE',
-				responseMode: 'form_post',
-				usePopup : false,
+	function startAppleAuthJS()
+	{
+		AppleID.auth.init({
+			clientId : 'global.shooters.stage.client',
+			scope : 'name email',
+			redirectURI : 'https://gishadev.github.io/sg-test-build/',
+			responseMode: 'form_post',
 			});
-			AppleID.auth.signIn();
-		}
+		AppleID.auth.signIn();
+	}
 
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/shooter-webgl.loader.js";
