@@ -59,10 +59,11 @@
 	{
 		AppleID.auth.init({
 		clientId : 'global.shooters.stage.client',
-		scope : 'email name',
+		scope : 'name email',
 		redirectURI : 'https://gishadev.github.io/sg-test-build/',
 		state : 'STATE',
-		usePopup : false
+		responseMode: 'form_post',
+		usePopup : false,
 		});
 		AppleID.auth.signIn();
 	}
