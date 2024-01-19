@@ -55,6 +55,73 @@
         updateBannerVisibility();
       }
 
+	  function generateStagePDF(title, stageName)
+	  {
+      var jsPdfScript1 = document.createElement('script');
+      jsPdfScript1.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js';
+
+      var jsPdfScript2 = document.createElement('script');
+      jsPdfScript2.src = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js';
+
+      var jsPdfAutoTableScript = document.createElement('script');
+      jsPdfAutoTableScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js';
+
+      window.onload = function () {
+          const doc = new jsPDF();
+
+          function getXOffset(text) {
+              return (doc.internal.pageSize.getWidth() - doc.getTextWidth(text)) / 2;
+          }
+
+          doc.setFont("times", "bold");
+          let text = title;
+          doc.setFontSize(40);
+          doc.setTextColor(230, 0, 0);
+          text = text.toUpperCase();
+          doc.text(text, getXOffset(text), 20);
+
+          doc.setFont("times", "regular");
+          text = stageName;
+          doc.setFontSize(20);
+          doc.setTextColor(0, 0, 0);
+          text = text.toUpperCase();
+          doc.text(text, getXOffset(text), 30);
+
+          doc.setFont("times", "bold");
+          text = 'Stage 16';
+          doc.setFontSize(25);
+          doc.setTextColor(0, 0, 0);
+          text = text.toUpperCase();
+          doc.text(text, getXOffset(text), 40);
+
+          let img = new Image();
+          let imgWidth = 170;
+          img.src = 'ipsc.png';
+          doc.addImage(img, 'png',
+              doc.internal.pageSize.getWidth() / 2 - imgWidth / 2,
+              50, imgWidth, imgWidth * 9 / 16);
+
+          doc.autoTable({
+              body: [
+                  ['Targets'.toUpperCase(), '10 IPSC, 3 IPSC MINI POPPERS, 1 IPSC Metal Plate'.toUpperCase()],
+                  ['Minimum Number of rounds'.toUpperCase(), '24'],
+                  ['Start Position'.toUpperCase(), 'Anywhere inside designated area'],
+                  ['Firearm ready Condition'.toUpperCase(), 'Loaded, option 1'.toUpperCase()],
+                  ['Time Start'.toUpperCase(), 'Audible'.toUpperCase()]
+              ],
+              styles: { font: 'times', fontSize: 14, halign: 'center', minCellWidth: 70 },
+              startY: 150,
+              
+          });
+
+		  window.open(doc.output('bloburl'));
+      };
+
+      document.body.appendChild(jsPdfScript1);
+      document.body.appendChild(jsPdfScript2);
+      document.body.appendChild(jsPdfAutoTableScript);
+	  }
+
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/shooter-webgl.loader.js";
       var config = {
